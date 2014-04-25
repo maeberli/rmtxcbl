@@ -3,6 +3,8 @@
 #include "execManager.hpp"
 
 using namespace std;
+namespace rmtxcbl
+{
 
 ExecManager::ExecManager(const std::string relativePath)
 :relativePath(relativePath)
@@ -38,4 +40,6 @@ bool ExecManager::importExec(void)
 char* ExecManager::getExec(void)
 {
 	return this->exec;
+}
+
 }

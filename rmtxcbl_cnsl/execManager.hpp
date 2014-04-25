@@ -2,7 +2,9 @@
 #define EXEC_MANAGER
 
 #include <string>
-
+namespace rmtxcbl
+{
+	
 class ExecManager {
 	public:
 		ExecManager(const std::string relativePath);
@@ -16,4 +18,5 @@ class ExecManager {
 		char* exec;
 };
 
+}
 #endif
