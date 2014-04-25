@@ -1,0 +1,11 @@
+package rmtxcbl;
+
+message executable {
+	required char exec = 1;
+	optional string label = 2;
+}
+
+message stream {
+	optional string out = 1;
+	optional string err = 2;
+}
