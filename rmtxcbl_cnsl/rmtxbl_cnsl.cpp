@@ -1,9 +1,11 @@
 #include <iostream>
 #include <string>
+#include "execManager.hpp"
 
 bool parseArgs(int argc, char** argv, std::string *out_exec, std::string *out_remhost);
 void printHelp(char *argv0, std::string errorMsg);
 void printHelp(char *argv0);
+void printError(std::string message);
 
 int main(int argc, char** argv)
 {
@@ -14,6 +16,13 @@ int main(int argc, char** argv)
         printHelp(argv[0], "Invalid arguments");
         return 2;
     }
+    std::cout << exec << std::endl;
+    ExecManager execManager(exec);
+    if( !execManager.importExec() )
+    {
+		printError("Failed to import exec : " + exec);
+		return 0;
+	}
 
     return 0;
 }
@@ -48,5 +57,10 @@ void printHelp(char *argv0)
               << "            which will be transfered and executed" << std::endl
               << "  remhost  destination host or ip-address containing" << std::endl
               << "            the rmtxcbl_rnnr" << std::endl;
+}
+
+void printError(std::string message)
+{
+	std::cout << std::endl << "Error : " << message << "\n\n";
 }
 
