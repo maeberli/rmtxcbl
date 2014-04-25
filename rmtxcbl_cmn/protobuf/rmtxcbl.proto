@@ -1,7 +1,7 @@
 package rmtxcbl;
 
 message executable {
-	required char exec = 1;
+	required bytes exec = 1;
 	optional string label = 2;
 }
 
