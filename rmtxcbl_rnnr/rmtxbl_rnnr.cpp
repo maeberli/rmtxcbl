@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+#include "runner.hpp"
+
 bool parseArgv(int argc, char** argv);
 void printHelp(char *argv0, std::string errorMsg);
 void printHelp(char *argv0);
@@ -12,6 +14,9 @@ int main(int argc, char** argv)
         printHelp(argv[0], "Invalid arguments");
         return 2;
     }
+
+    Runner runner(6686);
+    runner.run();
 
     return 0;
 }
