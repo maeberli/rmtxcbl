@@ -6,8 +6,8 @@ using namespace std;
 namespace rmtxcbl
 {
 
-ExecManager::ExecManager(const std::string relativePath)
-:relativePath(relativePath)
+ExecManager::ExecManager(const std::string path)
+:path(path)
 {
 	this->exec = NULL;
 }
@@ -21,7 +21,7 @@ bool ExecManager::importExec(void)
 {
 	streampos size;
 	
-	ifstream file(this->relativePath.c_str(), ios::in|ios::binary|ios::ate);
+	ifstream file(this->path.c_str(), ios::in|ios::binary|ios::ate);
 	if(file.is_open())
 	{
 		size = file.tellg();
