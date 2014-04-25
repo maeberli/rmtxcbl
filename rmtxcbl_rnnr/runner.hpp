@@ -17,6 +17,10 @@ private:
     
     TCPAcceptor tcpAcceptor;
     bool running;
+
+
+    void forkAndHandle(TCPStream *stream);
+    void handle(TCPStream *stream);
 };
 
 
