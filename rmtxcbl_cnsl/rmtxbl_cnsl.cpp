@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "execManager.hpp"
+#include "rmtxcbl.pb.h"
 
 bool parseArgs(int argc, char** argv, std::string *out_exec, std::string *out_remhost);
 void printHelp(char *argv0, std::string errorMsg);
@@ -9,6 +10,8 @@ void printError(std::string message);
 
 int main(int argc, char** argv)
 {
+	GOOGLE_PROTOBUF_VERIFY_VERSION;
+	
     std::string exec = "";
     std::string remhost = "";
     if( !parseArgs(argc, argv, &exec, &remhost) )
@@ -16,14 +19,27 @@ int main(int argc, char** argv)
         printHelp(argv[0], "Invalid arguments");
         return 2;
     }
-    std::cout << exec << std::endl;
-    ExecManager execManager(exec);
+    
+    std::cout << "Exec to send : " << exec << std::endl;
+    std::cout << "At : " << remhost << std::endl;
+    rmtxcbl::ExecManager execManager(exec);
     if( !execManager.importExec() )
     {
 		printError("Failed to import exec : " + exec);
 		return 0;
 	}
-
+	std::cout << "Exec imported" << std::endl;
+	
+	rmtxcbl::executable executable;
+	executable.set_exec(execManager.getExec());
+	executable.set_label("DummyExecLabel"); 
+	std::cout << "Protobuf executable setted" << std::endl;
+	
+	// User sokets here
+	std::cout << "[TODO] Message send via sockets" << std::endl;
+	
+	
+	google::protobuf::ShutdownProtobufLibrary();
     return 0;
 }
 
