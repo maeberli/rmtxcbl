@@ -3,6 +3,8 @@
 
 #include "runner.hpp"
 
+using namespace rmtxcbl;
+
 bool parseArgv(int argc, char** argv);
 void printHelp(char *argv0, std::string errorMsg);
 void printHelp(char *argv0);

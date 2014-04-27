@@ -3,6 +3,13 @@
 #include <stdio.h>
 #include <iostream>
 
+namespace rmtxcbl
+{
+
+/*********************************\
+ Constructor/Destructor
+\*********************************/
+
 Runner::Runner(int port):
     tcpAcceptor( port ),
     running( false )
@@ -12,6 +19,10 @@ Runner::Runner(int port):
 Runner::~Runner()
 {
 }
+
+/*********************************\
+ Public
+\*********************************/
 
 void Runner::run()
 {
@@ -32,6 +43,10 @@ void Runner::stop()
 {
     this->running = false;
 }
+
+/*********************************\
+ Private
+\*********************************/
 
 void Runner::forkAndHandle(TCPStream *stream)
 {
@@ -57,4 +72,6 @@ void Runner::handle(TCPStream *stream)
 {
     while(true)
         std::cout << "handle " << getpid() << std::endl;
+}
+
 }

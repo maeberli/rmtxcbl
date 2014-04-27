@@ -3,6 +3,9 @@
 
 #include "tcpacceptor.hpp"
 
+namespace rmtxcbl
+{
+
 class Runner
 {
 
@@ -23,5 +26,6 @@ private:
     void handle(TCPStream *stream);
 };
 
+}
 
 #endif
