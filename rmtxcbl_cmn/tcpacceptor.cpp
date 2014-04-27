@@ -1,8 +1,16 @@
 #include "tcpacceptor.hpp"
 
-#include <arpa/inet.h>
 #include <stdio.h>
 #include <string.h>
+
+namespace rmtxcbl
+{
+#include <arpa/inet.h>
+   
+
+/*********************************\
+ Constructor/Destructor
+\*********************************/
 
 TCPAcceptor::TCPAcceptor(int port, const char* address)
 {
@@ -14,6 +22,10 @@ TCPAcceptor::TCPAcceptor(int port, const char* address)
 
 TCPAcceptor::~TCPAcceptor()
 {}
+
+/*********************************\
+ Public
+\*********************************/
 
 int TCPAcceptor::start()
 {
@@ -77,4 +89,6 @@ TCPStream* TCPAcceptor::accept()
     }
 
     return new TCPStream(sd, &address);
+}
+
 }

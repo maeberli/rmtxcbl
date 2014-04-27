@@ -1,17 +1,25 @@
 #ifndef TCPCONNECTOR_HPP
 #define TCPCONNECTOR_HPP
 
-class TCPStream;
+#include "tcpstream.hpp"
+
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+
+namespace rmtxcbl
+{
 
 class TCPConnector
 {
 public:
     TCPStream* connect(const char* server, int port);
-    TCPStream* connect(const char* server, int port, int timeout);
 
 private:
     int resolveHostName(const char* host, struct in_addr* addr);
 
 };
+
+}
 
 #endif

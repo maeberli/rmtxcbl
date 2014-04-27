@@ -2,6 +2,9 @@
 
 #include <arpa/inet.h>
 
+namespace rmtxcbl
+{
+
 /*********************************\
  Public
 \*********************************/
@@ -17,14 +20,14 @@ int TCPStream::getPeerPort()
 }
 
 /*********************************\
- Private
+ Private Contructor
 \*********************************/
 
-TCPStream::TCPStream(int socketdescriptor, struct sockaddr_in* address) :
+TCPStream::TCPStream(int socketdescriptor, struct ::sockaddr_in* address) :
     socketdescriptor(socketdescriptor)
 {
     char ip[50];
-    inet_ntop(PF_INET, (struct in_addr*)&(address->sin_addr.s_addr),
+    inet_ntop(PF_INET, (struct ::in_addr*)&(address->sin_addr.s_addr),
             ip, sizeof(ip) - 1);
     
     this->peerIP = ip;
@@ -38,6 +41,10 @@ TCPStream::TCPStream(const TCPStream& stream)
     this->socketdescriptor = stream.socketdescriptor;
 }
 
+/*********************************\
+ Private
+\*********************************/
+
 ssize_t TCPStream::sendBuffer(char* buffer, size_t len)
 {
     return write( socketdescriptor, buffer, len );
@@ -45,4 +52,6 @@ ssize_t TCPStream::sendBuffer(char* buffer, size_t len)
 
 ssize_t TCPStream::receive(char* buffer, size_t len)
 {
+}
+
 }

@@ -3,6 +3,9 @@
 
 #include "tcpstream.hpp"
 
+namespace rmtxcbl
+{
+
 class TCPAcceptor
 {
 
@@ -19,4 +22,7 @@ private:
     int port;
     bool listening;
 };
+
+}
+
 #endif
