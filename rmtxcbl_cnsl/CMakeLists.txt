@@ -4,6 +4,7 @@ project (rmtxcbl_cnsl)
 set(BINARYNAME rmtxcbl_cnsl)
 set(CMN_PATH ../rmtxcbl_cmn)
 set(PROTOBUF_LIBRARY protobuf)
+set(PTHREAD_LIBRARY pthread)
 
 file(GLOB SRC_FILES *.cpp)
 file(GLOB SRC_FILES_CMN ${CMN_PATH}/*.cpp)
@@ -16,4 +17,5 @@ add_executable(${BINARYNAME} ${SRC_FILES})
 
 target_link_libraries(${BINARYNAME}
     ${PROTOBUF_LIBRARY}
+    ${PTHREAD_LIBRARY}
 )

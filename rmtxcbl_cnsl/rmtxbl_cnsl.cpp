@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 	}
 	std::cout << "Exec imported" << std::endl;
 	
-	rmtxcbl::executable executable;
+	rmtxcbl::Executable executable;
 	executable.set_exec(execManager.getExec());
 	executable.set_label("DummyExecLabel"); 
 	std::cout << "Protobuf executable setted" << std::endl;
