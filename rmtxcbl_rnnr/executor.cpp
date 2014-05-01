@@ -13,12 +13,13 @@ Executor::Executor(TCPStream *stream) :
 void Executor::process()
 {
     std::cout << "start receiving exectuable" << std::endl;
-    Executable *msg;
+    RmtxcblMessage *msg;
     if(stream->receiveMessage(&msg, 5))
     {
         std::cout << "Successfull received executable" << std::endl;
-        std::cout << "recveived label: " << msg->label() << std::endl;
-        std::cout << "received exec: " << msg->exec() << std::endl;
+        std::cout << "received type: " << msg->type() << std::endl;
+        //std::cout << "recveived label: " << msg->label() << std::endl;
+        //std::cout << "received exec: " << msg->exec() << std::endl;
     }
     else
     {

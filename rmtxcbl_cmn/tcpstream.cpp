@@ -26,14 +26,14 @@ int TCPStream::getPeerPort()
     return this->peerPort;
 }
 
-bool TCPStream::receiveMessage(Executable **msg, int timeout)
+bool TCPStream::receiveMessage(RmtxcblMessage **msg, int timeout)
 {
     char buffer[MAX_MESSAGE_SIZE];
 
     int received_bytes = receive(buffer, MAX_MESSAGE_SIZE, timeout);
     if( received_bytes > 0)
     {
-        *msg = new Executable();
+        *msg = new RmtxcblMessage();
         return (*msg)->ParseFromArray(buffer, received_bytes);
     }
     else
@@ -43,7 +43,7 @@ bool TCPStream::receiveMessage(Executable **msg, int timeout)
     return false;
 }
 
-bool TCPStream::sendMessage(const Executable &msg)
+bool TCPStream::sendMessage(const RmtxcblMessage &msg)
 {
     int size = msg.ByteSize(); 
     char *buffer = (char*)malloc(size);

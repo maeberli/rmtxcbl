@@ -26,8 +26,8 @@ public:
     string getPeerIP();
     int getPeerPort();
 
-    bool receiveMessage(Executable **msg, int timeout);
-    bool sendMessage(const Executable &msg);
+    bool receiveMessage(RmtxcblMessage **msg, int timeout);
+    bool sendMessage(const RmtxcblMessage &msg);
 
 private:
     static const int MAX_MESSAGE_SIZE;
