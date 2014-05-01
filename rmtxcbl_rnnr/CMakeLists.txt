@@ -1,6 +1,9 @@
 cmake_minimum_required (VERSION 2.8)
 project (rmtxcbl_rnnr)
 
+set(BUILD_SHARED_LIBS FALSE)
+set(CMAKE_EXE_LINKER_FLAGS "-static")
+
 set(BINARYNAME rmtxcbl_rnnr)
 set(CMN_PATH ../rmtxcbl_cmn)
 set(PROTOBUF_LIBRARY protobuf)
