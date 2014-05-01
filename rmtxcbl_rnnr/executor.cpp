@@ -96,16 +96,37 @@ bool Executor::runExecutable(void)
 void Executor::sendStdOut(std::string line)
 {
     std::cout << "runner STDOUT sends line to cnsl: " << line << std::endl;
+
+    rmtxcbl::RmtxcblMessage msg;
+    msg.set_type(rmtxcbl::RmtxcblMessage_Type_STREAM);
+
+    msg.mutable_stream()->set_out(line);
+
+    stream->sendMessage(msg);
 }
 
 void Executor::sendStdErr(std::string line)
 {
     std::cout << "runner ERROR send line to cnsl: " << line << std::endl;
+
+    rmtxcbl::RmtxcblMessage msg;
+    msg.set_type(rmtxcbl::RmtxcblMessage_Type_STREAM);
+
+    msg.mutable_stream()->set_err(line);
+
+    stream->sendMessage(msg);
 }
 
 void Executor::sendState(std::string state)
 {
     std::cout << "runner sends STATE to cnsl: " << state << std::endl;
+
+    rmtxcbl::RmtxcblMessage msg;
+    msg.set_type(rmtxcbl::RmtxcblMessage_Type_STREAM);
+
+    msg.mutable_stream()->set_in(state);
+
+    stream->sendMessage(msg);
 }
 
 void Executor::readFromPipe(int fd)
