@@ -30,6 +30,7 @@ int main(int argc, char** argv)
     rmtxcbl::Console console(exec, label, remhost, port);
     console.sendExecAndListen();
     
+    google::protobuf::ShutdownProtobufLibrary();
     return 0;
 }
 
