@@ -76,14 +76,19 @@ bool Console::listen(void)
         if(stream->receiveMessage(&msg,30))
         {
             std::cout << std::endl << "===================================" << std::endl;
-            if(msg->type() == 2)
+            if(msg->type() == rmtxcbl::RmtxcblMessage::OUTSTREAM)
             {
-                std::cout << "Successfull received stream" << std::endl;
-                std::cout << "received type: " << msg->type() << std::endl;
-                std::cout << "recveived in: " << msg->stream().in() << std::endl;
-                std::cout << "recveived out: " << msg->stream().out() << std::endl;
-                std::cout << "recveived err: " << msg->stream().err() << std::endl;
-            } else {
+                std::cout << "output: " << msg->outstream().out() << std::endl;
+            }
+            else if(msg->type() == rmtxcbl::RmtxcblMessage::STATE)
+            {
+                std::cout << "state changed to: "
+                          << msg->executablestate().state() << std::endl;
+                std::cout << "     description: "
+                          << msg->executablestate().description() << std::endl;
+            }
+            else
+            {
                 std::cout << std::endl << "Successfull received message of type " << msg->type() << std::endl;
             }
             std::cout << "===================================" << std::endl  << std::endl;
