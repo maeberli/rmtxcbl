@@ -15,6 +15,7 @@ public:
 private:
     TCPStream *stream;
     std::string filename;
+    std::string label;
 
     void saveBinary(const char *buffer, size_t size);
     bool runExecutable(void);
@@ -25,6 +26,7 @@ private:
     
     void setExecPermission(void) const;
     void setFilename(std::string label);
+    void setLabel(std::string label);
     std::string toString(time_t val) const;
 
 };

@@ -10,36 +10,45 @@ namespace rmtxcbl
 {
 
 Executor::Executor(TCPStream *stream) :
-    stream(stream)
+    stream(stream),
+    filename(""),
+    label("")
 {
 }
 
 void Executor::process(void)
 {
-    std::cout << "start receiving exectuable" << std::endl;
+    std::cout << this->label << "start receiving exectuable" << std::endl;
     RmtxcblMessage *msg;
     if(stream->receiveMessage(&msg, 5))
     {
         if(msg->type() == rmtxcbl::RmtxcblMessage_Type_EXEC)
         {
-            std::cout << "Successfull received executable" << std::endl;
+            std::cout << this->label << "Successfull received executable" << std::endl;
             const Executable &exec = msg->executable();
 
             this->setFilename( exec.label() );
+            this->setLabel( exec.label() );
+
             this->saveBinary( exec.exec().c_str(), exec.exec().length() );
-            std::cout << "Saved binary file to: " << this->filename << std::endl;
+            std::cout << this->label << "Saved binary file to: "
+                << this->filename << std::endl;
 
             this->setExecPermission();
             this->runExecutable();
+
+            std::cout << this->label << "finished execution." << std::endl;
         }
         else
         {
-            sendState("Unexpected message received", rmtxcbl::ExecutableState::STOPPED);
+            sendState(
+                    this->label + "Unexpected message received",
+                    rmtxcbl::ExecutableState::STOPPED);
         }
     }
     else
     {
-        std::cout << "Receiving error!" << std::endl;
+        std::cout << this->label << "Receiving error!" << std::endl;
     }
 }
 
@@ -57,13 +66,18 @@ bool Executor::runExecutable(void)
 
     if(pipe(link)==-1)
     {
-        perror("Error during pipe creation. Abort!");
+        std::string errorMsg = this->label = "Error during pipe creation. Abort!";
+        perror(errorMsg.c_str());
         return false;
     }
 
     if( (pid = fork()) == -1)
     {
-        perror("Errro during forking in Executor::runExecutable(). Aborting!");
+        std::string errorMsg =
+            this->label
+            + "Errro during forking in Executor::runExecutable(). Aborting!";
+
+        perror( errorMsg.c_str() );
         return false;
     }
     else if(pid == 0)
@@ -72,18 +86,24 @@ bool Executor::runExecutable(void)
         close(link[0]);
         
         // run executable
-        sendState("Start execution", rmtxcbl::ExecutableState::STARTED);
+        sendState(
+                this->label + "Start execution",
+                rmtxcbl::ExecutableState::STARTED);
 
         int code = system(this->filename.c_str());
         if(code == -1)
         {
-            perror("child process error");
+            std::string errorMsg = this->label + "child process error";
+            perror(errorMsg.c_str());
+            
             sendState(
-                    "Running failed. Runner internal error",
+                    this->label + "Running failed. Runner internal error",
                     rmtxcbl::ExecutableState::STOPPED);
         }
 
-        sendState("Finished execution with: " + code, rmtxcbl::ExecutableState::STOPPED);
+        sendState(
+            this->label + "Finished execution with: " + toString(code),
+            rmtxcbl::ExecutableState::STOPPED);
     }
     else
     {
@@ -146,7 +166,8 @@ void Executor::setExecPermission(void) const
 {
     if(-1==chmod(this->filename.c_str(), S_IRWXU))
     {
-        perror("Setting exec permission error");
+        std::string msg = this->label + "Setting exec permission error";
+        perror(msg.c_str());
     }
 }
 
@@ -156,6 +177,11 @@ void Executor::setFilename(std::string label)
     time(&rawtime);
 
     this->filename = "./" + label + toString(rawtime) + ".a";
+}
+
+void Executor::setLabel(std::string label)
+{
+    this->label = "[" + label + "]";
 }
 
 std::string Executor::toString(time_t val) const
