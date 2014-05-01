@@ -13,10 +13,15 @@ public:
     void process();
 
 private:
-    TCPStream *stream;  
+    TCPStream *stream;
+    std::string filename;
+
+    void saveBinary( const char *buffer, size_t size );
+    void setFilename( std::string label );
+    std::string toString( time_t val ) const;
+
 };
 
 }
-
 
 #endif

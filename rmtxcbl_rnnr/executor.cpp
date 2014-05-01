@@ -1,6 +1,9 @@
 #include "executor.hpp"
 
+#include <string.h>
 #include <iostream>
+#include <sstream>
+#include <fstream>
 
 namespace rmtxcbl
 {
@@ -16,32 +19,38 @@ void Executor::process()
     RmtxcblMessage *msg;
     if(stream->receiveMessage(&msg, 5))
     {
-        std::cout << std::endl << "===================================" << std::endl;
-        if(msg->type() == 1)
-        {
-            std::cout << "Successfull received executable" << std::endl;
-            std::cout << "received type: " << msg->type() << std::endl;
-            std::cout << "recveived label: " << msg->executable().label() << std::endl;
-            std::cout << "received exec: " << msg->executable().exec() << std::endl;
-        } else {
-            std::cout << std::endl << "Successfull received message of type " << msg->type() << std::endl;
-        }
-        std::cout << "===================================" << std::endl  << std::endl;
-        
-        rmtxcbl::Stream *streamMessage = new rmtxcbl::Stream();
-        streamMessage->set_in("["+msg->executable().label()+"] : in Test");
-        streamMessage->set_out("["+msg->executable().label()+"] : out Test");
-        streamMessage->set_err("["+msg->executable().label()+"] : err Test");
-        rmtxcbl::RmtxcblMessage rmtxcblMessage;
-        rmtxcblMessage.set_type(rmtxcbl::RmtxcblMessage_Type_STREAM);
-        rmtxcblMessage.set_allocated_stream(streamMessage);
+        std::cout << "Successfull received executable" << std::endl;
 
-        stream->sendMessage(rmtxcblMessage);
+        setFilename( msg->label() );
+        saveBinary( msg->exec().c_str(), msg->exec().length() );
+        std::cout << "Saved binary file to: " << this->filename << std::endl;
     }
     else
     {
-        std::cout << "receiving error!" << std::endl;
+        std::cout << "Receiving error!" << std::endl;
     }
+}
+
+void Executor::saveBinary( const char *buffer, size_t size)
+{
+    std::ofstream outfile( this->filename.c_str(), std::ofstream::binary);
+    outfile.write (buffer,size);
+    outfile.close();
+}
+
+void Executor::setFilename( std::string label )
+{
+    time_t rawtime;
+    time(&rawtime);
+
+    this->filename = label + toString(rawtime) + ".a";
+}
+
+std::string Executor::toString(time_t val) const
+{
+    stringstream ss;
+    ss << val;
+    return ss.str();
 }
 
 }
