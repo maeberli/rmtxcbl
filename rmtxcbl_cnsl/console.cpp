@@ -49,7 +49,7 @@ bool Console::sendExec(void)
     
     rmtxcbl::Executable *executable = new Executable();
     std::cout << "size of " << sizeof(execManager.getExec()) << std::endl;
-    executable->set_exec(execManager.getExec());
+    executable->set_exec(execManager.getExec(), execManager.getExecSize());
     executable->set_label(label); 
     std::cout << "Protobuf executable setted" << std::endl;
 
@@ -62,7 +62,7 @@ bool Console::sendExec(void)
     
     rmtxcbl::RmtxcblMessage rmtxcblMessage;
     rmtxcblMessage.set_type(rmtxcbl::RmtxcblMessage_Type_EXEC);
-    rmtxcblMessage.set_allocated_executable(executable);
+    rmtxcblMessage.mutable_executable()->CopyFrom(*executable);
 
     stream->sendMessage(rmtxcblMessage);
     std::cout << "Message sent" << std::endl;
