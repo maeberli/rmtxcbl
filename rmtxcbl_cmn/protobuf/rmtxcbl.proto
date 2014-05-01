@@ -1,11 +1,21 @@
 package rmtxcbl;
 
+message RmtxcblMessage {
+	enum Type { EXEC = 1; STREAM = 2;}
+	
+	required Type type = 1;
+
+	optional Executable executable = 2;
+	optional Stream stream = 3;
+}
+
 message Executable {
 	required bytes exec = 1;
 	optional string label = 2;
 }
 
 message Stream {
-	optional string out = 1;
-	optional string err = 2;
+	optional string in = 1;
+	optional string out = 2;
+	optional string err = 3;
 }
