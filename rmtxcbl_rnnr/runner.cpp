@@ -59,6 +59,8 @@ void Runner::forkAndHandle(TCPStream *stream)
         //child process: handle here
         std::cout << "Successfull forked." << std::endl;
         handle(stream);
+        
+        exit(0);
     }
     else if(pid > 0)
     {

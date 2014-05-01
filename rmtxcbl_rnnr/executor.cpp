@@ -74,7 +74,7 @@ bool Executor::runExecutable(void)
         // run executable
         sendState("Start execution", rmtxcbl::ExecutableState::STARTED);
 
-        int code = execl(this->filename.c_str(), this->filename.c_str(), (char *)0);
+        int code = system(this->filename.c_str());
         if(code == -1)
         {
             perror("child process error");
@@ -97,8 +97,6 @@ bool Executor::runExecutable(void)
 
 void Executor::sendStdOut(std::string line)
 {
-    std::cout << "runner STDOUT sends line to cnsl: " << line << std::endl;
-
     rmtxcbl::RmtxcblMessage msg;
     msg.set_type(rmtxcbl::RmtxcblMessage_Type_OUTSTREAM);
 
@@ -109,8 +107,6 @@ void Executor::sendStdOut(std::string line)
 
 void Executor::sendState(std::string description, rmtxcbl::ExecutableState::State state)
 {
-    std::cout << "runner sends STATE to cnsl: " << state << std::endl;
-
     rmtxcbl::RmtxcblMessage msg;
     msg.set_type(rmtxcbl::RmtxcblMessage_Type_STATE);
 
@@ -159,7 +155,7 @@ void Executor::setFilename(std::string label)
     time_t rawtime;
     time(&rawtime);
 
-    this->filename = label + toString(rawtime) + ".a";
+    this->filename = "./" + label + toString(rawtime) + ".a";
 }
 
 std::string Executor::toString(time_t val) const
