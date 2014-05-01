@@ -20,14 +20,22 @@ void Executor::process(void)
     RmtxcblMessage *msg;
     if(stream->receiveMessage(&msg, 5))
     {
-        std::cout << "Successfull received executable" << std::endl;
+        if(msg->type() == rmtxcbl::RmtxcblMessage_Type_EXEC)
+        {
+            std::cout << "Successfull received executable" << std::endl;
+            const Executable &exec = msg->executable();
 
-        this->setFilename( msg->label() );
-        this->saveBinary( msg->exec().c_str(), msg->exec().length() );
-        std::cout << "Saved binary file to: " << this->filename << std::endl;
+            this->setFilename( exec.label() );
+            this->saveBinary( exec.exec().c_str(), exec.exec().length() );
+            std::cout << "Saved binary file to: " << this->filename << std::endl;
 
-        this->setExecPermission();
-        this->runExecutable();
+            this->setExecPermission();
+            this->runExecutable();
+        }
+        else
+        {
+            sendState("Unexpected message received");
+        }
     }
     else
     {
