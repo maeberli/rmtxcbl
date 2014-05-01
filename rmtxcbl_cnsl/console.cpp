@@ -79,7 +79,7 @@ bool Console::listen(void)
             else if(msg->type() == rmtxcbl::RmtxcblMessage::STATE)
             {
                 std::cout << "state changed to: "
-                          << msg->executablestate().state() << std::endl;
+                          << toString(msg->executablestate().state()) << std::endl;
                 std::cout << "     description: "
                           << msg->executablestate().description() << std::endl;
 
@@ -97,4 +97,22 @@ bool Console::listen(void)
     }
     return false;
 }
+
+std::string Console::toString(rmtxcbl::ExecutableState::State state)
+{
+    if(state == rmtxcbl::ExecutableState::STOPPED)
+    {
+        return "STOPPED";
+    }
+    else if(state == rmtxcbl::ExecutableState::STARTED)
+    {
+        return "STARTED";
+    }
+    else if(state == rmtxcbl::ExecutableState::TRANSFERED)
+    {
+        return "TRANSFERED";
+    }
 }
+
+}
+

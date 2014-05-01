@@ -21,6 +21,7 @@ class Console {
     private:
         bool sendExec(void);
         bool listen(void);
+        std::string toString(rmtxcbl::ExecutableState::State state);
     
     
         rmtxcbl::ExecManager execManager;
