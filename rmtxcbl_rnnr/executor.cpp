@@ -13,7 +13,7 @@ Executor::Executor(TCPStream *stream) :
 {
 }
 
-void Executor::process()
+void Executor::process(void)
 {
     std::cout << "start receiving exectuable" << std::endl;
     RmtxcblMessage *msg;
@@ -31,14 +31,14 @@ void Executor::process()
     }
 }
 
-void Executor::saveBinary( const char *buffer, size_t size)
+void Executor::saveBinary(const char *buffer, size_t size)
 {
     std::ofstream outfile( this->filename.c_str(), std::ofstream::binary);
     outfile.write (buffer,size);
     outfile.close();
 }
 
-void Executor::setFilename( std::string label )
+void Executor::setFilename(std::string label)
 {
     time_t rawtime;
     time(&rawtime);

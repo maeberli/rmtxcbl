@@ -18,7 +18,7 @@ Runner::Runner(int port):
 {
 }
 
-Runner::~Runner()
+Runner::~Runner(void)
 {
 }
 
@@ -26,7 +26,7 @@ Runner::~Runner()
  Public
 \*********************************/
 
-void Runner::run()
+void Runner::run(void)
 {
     this->tcpAcceptor.start();
     this->running = true;
@@ -41,7 +41,7 @@ void Runner::run()
     }
 }
 
-void Runner::stop()
+void Runner::stop(void)
 {
     this->running = false;
 }

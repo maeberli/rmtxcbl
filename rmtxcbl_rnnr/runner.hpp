@@ -11,10 +11,10 @@ class Runner
 
 public:
     Runner(int port);
-    ~Runner();
+    ~Runner(void);
     
-    void run();
-    void stop();
+    void run(void);
+    void stop(void);
 
 private:
     
