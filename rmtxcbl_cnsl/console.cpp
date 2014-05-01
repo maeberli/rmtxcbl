@@ -53,10 +53,6 @@ bool Console::sendExec(void)
     rmtxcbl::TCPConnector connector;
     stream = connector.connect(remHost.c_str(), port);
 
-    // std::cout << "will send exec: " << executable->exec() << std::endl;
-    // std::cout << "size of " << sizeof(execManager.getExec()) << std::endl;
-    // std::cout << "will send label: " << executable->label() << std::endl; 
-    
     rmtxcbl::RmtxcblMessage rmtxcblMessage;
     rmtxcblMessage.set_type(rmtxcbl::RmtxcblMessage_Type_EXEC);
     rmtxcblMessage.mutable_executable()->CopyFrom(*executable);
@@ -86,6 +82,11 @@ bool Console::listen(void)
                           << msg->executablestate().state() << std::endl;
                 std::cout << "     description: "
                           << msg->executablestate().description() << std::endl;
+
+                if(msg->executablestate().state() == rmtxcbl::ExecutableState::STOPPED)
+                {
+                    this->listenning = false;
+                }
             }
             else
             {
