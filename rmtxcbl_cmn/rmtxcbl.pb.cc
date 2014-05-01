@@ -24,9 +24,13 @@ const ::google::protobuf::EnumDescriptor* RmtxcblMessage_Type_descriptor_ = NULL
 const ::google::protobuf::Descriptor* Executable_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Executable_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Stream_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* OutStream_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  Stream_reflection_ = NULL;
+  OutStream_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ExecutableState_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ExecutableState_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor* ExecutableState_State_descriptor_ = NULL;
 
 }  // namespace
 
@@ -38,10 +42,11 @@ void protobuf_AssignDesc_rmtxcbl_2eproto() {
       "rmtxcbl.proto");
   GOOGLE_CHECK(file != NULL);
   RmtxcblMessage_descriptor_ = file->message_type(0);
-  static const int RmtxcblMessage_offsets_[3] = {
+  static const int RmtxcblMessage_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RmtxcblMessage, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RmtxcblMessage, executable_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RmtxcblMessage, stream_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RmtxcblMessage, outstream_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RmtxcblMessage, executablestate_),
   };
   RmtxcblMessage_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -71,23 +76,38 @@ void protobuf_AssignDesc_rmtxcbl_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Executable));
-  Stream_descriptor_ = file->message_type(2);
-  static const int Stream_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Stream, in_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Stream, out_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Stream, err_),
+  OutStream_descriptor_ = file->message_type(2);
+  static const int OutStream_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(OutStream, out_),
   };
-  Stream_reflection_ =
+  OutStream_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      Stream_descriptor_,
-      Stream::default_instance_,
-      Stream_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Stream, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Stream, _unknown_fields_),
+      OutStream_descriptor_,
+      OutStream::default_instance_,
+      OutStream_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(OutStream, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(OutStream, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(Stream));
+      sizeof(OutStream));
+  ExecutableState_descriptor_ = file->message_type(3);
+  static const int ExecutableState_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExecutableState, state_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExecutableState, description_),
+  };
+  ExecutableState_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ExecutableState_descriptor_,
+      ExecutableState::default_instance_,
+      ExecutableState_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExecutableState, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExecutableState, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ExecutableState));
+  ExecutableState_State_descriptor_ = ExecutableState_descriptor_->enum_type(0);
 }
 
 namespace {
@@ -105,7 +125,9 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Executable_descriptor_, &Executable::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    Stream_descriptor_, &Stream::default_instance());
+    OutStream_descriptor_, &OutStream::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ExecutableState_descriptor_, &ExecutableState::default_instance());
 }
 
 }  // namespace
@@ -115,8 +137,10 @@ void protobuf_ShutdownFile_rmtxcbl_2eproto() {
   delete RmtxcblMessage_reflection_;
   delete Executable::default_instance_;
   delete Executable_reflection_;
-  delete Stream::default_instance_;
-  delete Stream_reflection_;
+  delete OutStream::default_instance_;
+  delete OutStream_reflection_;
+  delete ExecutableState::default_instance_;
+  delete ExecutableState_reflection_;
 }
 
 void protobuf_AddDesc_rmtxcbl_2eproto() {
@@ -126,22 +150,28 @@ void protobuf_AddDesc_rmtxcbl_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\rrmtxcbl.proto\022\007rmtxcbl\"\244\001\n\016RmtxcblMess"
+    "\n\rrmtxcbl.proto\022\007rmtxcbl\"\353\001\n\016RmtxcblMess"
     "age\022*\n\004type\030\001 \002(\0162\034.rmtxcbl.RmtxcblMessa"
     "ge.Type\022\'\n\nexecutable\030\002 \001(\0132\023.rmtxcbl.Ex"
-    "ecutable\022\037\n\006stream\030\003 \001(\0132\017.rmtxcbl.Strea"
-    "m\"\034\n\004Type\022\010\n\004EXEC\020\001\022\n\n\006STREAM\020\002\")\n\nExecu"
-    "table\022\014\n\004exec\030\001 \002(\014\022\r\n\005label\030\002 \001(\t\".\n\006St"
-    "ream\022\n\n\002in\030\001 \001(\t\022\013\n\003out\030\002 \001(\t\022\013\n\003err\030\003 \001"
-    "(\t", 282);
+    "ecutable\022%\n\toutstream\030\003 \001(\0132\022.rmtxcbl.Ou"
+    "tStream\0221\n\017executableState\030\004 \001(\0132\030.rmtxc"
+    "bl.ExecutableState\"*\n\004Type\022\010\n\004EXEC\020\001\022\r\n\t"
+    "OUTSTREAM\020\002\022\t\n\005STATE\020\003\")\n\nExecutable\022\014\n\004"
+    "exec\030\001 \002(\014\022\r\n\005label\030\002 \001(\t\"\030\n\tOutStream\022\013"
+    "\n\003out\030\001 \001(\t\"\210\001\n\017ExecutableState\022-\n\005state"
+    "\030\001 \002(\0162\036.rmtxcbl.ExecutableState.State\022\023"
+    "\n\013description\030\002 \001(\t\"1\n\005State\022\016\n\nTRANSFER"
+    "ED\020\001\022\013\n\007STARTED\020\002\022\013\n\007STOPPED\020\003", 470);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "rmtxcbl.proto", &protobuf_RegisterTypes);
   RmtxcblMessage::default_instance_ = new RmtxcblMessage();
   Executable::default_instance_ = new Executable();
-  Stream::default_instance_ = new Stream();
+  OutStream::default_instance_ = new OutStream();
+  ExecutableState::default_instance_ = new ExecutableState();
   RmtxcblMessage::default_instance_->InitAsDefaultInstance();
   Executable::default_instance_->InitAsDefaultInstance();
-  Stream::default_instance_->InitAsDefaultInstance();
+  OutStream::default_instance_->InitAsDefaultInstance();
+  ExecutableState::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_rmtxcbl_2eproto);
 }
 
@@ -163,6 +193,7 @@ bool RmtxcblMessage_Type_IsValid(int value) {
   switch(value) {
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -171,7 +202,8 @@ bool RmtxcblMessage_Type_IsValid(int value) {
 
 #ifndef _MSC_VER
 const RmtxcblMessage_Type RmtxcblMessage::EXEC;
-const RmtxcblMessage_Type RmtxcblMessage::STREAM;
+const RmtxcblMessage_Type RmtxcblMessage::OUTSTREAM;
+const RmtxcblMessage_Type RmtxcblMessage::STATE;
 const RmtxcblMessage_Type RmtxcblMessage::Type_MIN;
 const RmtxcblMessage_Type RmtxcblMessage::Type_MAX;
 const int RmtxcblMessage::Type_ARRAYSIZE;
@@ -179,7 +211,8 @@ const int RmtxcblMessage::Type_ARRAYSIZE;
 #ifndef _MSC_VER
 const int RmtxcblMessage::kTypeFieldNumber;
 const int RmtxcblMessage::kExecutableFieldNumber;
-const int RmtxcblMessage::kStreamFieldNumber;
+const int RmtxcblMessage::kOutstreamFieldNumber;
+const int RmtxcblMessage::kExecutableStateFieldNumber;
 #endif  // !_MSC_VER
 
 RmtxcblMessage::RmtxcblMessage()
@@ -189,7 +222,8 @@ RmtxcblMessage::RmtxcblMessage()
 
 void RmtxcblMessage::InitAsDefaultInstance() {
   executable_ = const_cast< ::rmtxcbl::Executable*>(&::rmtxcbl::Executable::default_instance());
-  stream_ = const_cast< ::rmtxcbl::Stream*>(&::rmtxcbl::Stream::default_instance());
+  outstream_ = const_cast< ::rmtxcbl::OutStream*>(&::rmtxcbl::OutStream::default_instance());
+  executablestate_ = const_cast< ::rmtxcbl::ExecutableState*>(&::rmtxcbl::ExecutableState::default_instance());
 }
 
 RmtxcblMessage::RmtxcblMessage(const RmtxcblMessage& from)
@@ -202,7 +236,8 @@ void RmtxcblMessage::SharedCtor() {
   _cached_size_ = 0;
   type_ = 1;
   executable_ = NULL;
-  stream_ = NULL;
+  outstream_ = NULL;
+  executablestate_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -213,7 +248,8 @@ RmtxcblMessage::~RmtxcblMessage() {
 void RmtxcblMessage::SharedDtor() {
   if (this != default_instance_) {
     delete executable_;
-    delete stream_;
+    delete outstream_;
+    delete executablestate_;
   }
 }
 
@@ -243,8 +279,11 @@ void RmtxcblMessage::Clear() {
     if (has_executable()) {
       if (executable_ != NULL) executable_->::rmtxcbl::Executable::Clear();
     }
-    if (has_stream()) {
-      if (stream_ != NULL) stream_->::rmtxcbl::Stream::Clear();
+    if (has_outstream()) {
+      if (outstream_ != NULL) outstream_->::rmtxcbl::OutStream::Clear();
+    }
+    if (has_executablestate()) {
+      if (executablestate_ != NULL) executablestate_->::rmtxcbl::ExecutableState::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -287,17 +326,31 @@ bool RmtxcblMessage::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(26)) goto parse_stream;
+        if (input->ExpectTag(26)) goto parse_outstream;
         break;
       }
       
-      // optional .rmtxcbl.Stream stream = 3;
+      // optional .rmtxcbl.OutStream outstream = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_stream:
+         parse_outstream:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_stream()));
+               input, mutable_outstream()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(34)) goto parse_executableState;
+        break;
+      }
+      
+      // optional .rmtxcbl.ExecutableState executableState = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_executableState:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_executablestate()));
         } else {
           goto handle_uninterpreted;
         }
@@ -335,10 +388,16 @@ void RmtxcblMessage::SerializeWithCachedSizes(
       2, this->executable(), output);
   }
   
-  // optional .rmtxcbl.Stream stream = 3;
-  if (has_stream()) {
+  // optional .rmtxcbl.OutStream outstream = 3;
+  if (has_outstream()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, this->stream(), output);
+      3, this->outstream(), output);
+  }
+  
+  // optional .rmtxcbl.ExecutableState executableState = 4;
+  if (has_executablestate()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->executablestate(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -362,11 +421,18 @@ void RmtxcblMessage::SerializeWithCachedSizes(
         2, this->executable(), target);
   }
   
-  // optional .rmtxcbl.Stream stream = 3;
-  if (has_stream()) {
+  // optional .rmtxcbl.OutStream outstream = 3;
+  if (has_outstream()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        3, this->stream(), target);
+        3, this->outstream(), target);
+  }
+  
+  // optional .rmtxcbl.ExecutableState executableState = 4;
+  if (has_executablestate()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->executablestate(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -393,11 +459,18 @@ int RmtxcblMessage::ByteSize() const {
           this->executable());
     }
     
-    // optional .rmtxcbl.Stream stream = 3;
-    if (has_stream()) {
+    // optional .rmtxcbl.OutStream outstream = 3;
+    if (has_outstream()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->stream());
+          this->outstream());
+    }
+    
+    // optional .rmtxcbl.ExecutableState executableState = 4;
+    if (has_executablestate()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->executablestate());
     }
     
   }
@@ -433,8 +506,11 @@ void RmtxcblMessage::MergeFrom(const RmtxcblMessage& from) {
     if (from.has_executable()) {
       mutable_executable()->::rmtxcbl::Executable::MergeFrom(from.executable());
     }
-    if (from.has_stream()) {
-      mutable_stream()->::rmtxcbl::Stream::MergeFrom(from.stream());
+    if (from.has_outstream()) {
+      mutable_outstream()->::rmtxcbl::OutStream::MergeFrom(from.outstream());
+    }
+    if (from.has_executablestate()) {
+      mutable_executablestate()->::rmtxcbl::ExecutableState::MergeFrom(from.executablestate());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -458,6 +534,9 @@ bool RmtxcblMessage::IsInitialized() const {
   if (has_executable()) {
     if (!this->executable().IsInitialized()) return false;
   }
+  if (has_executablestate()) {
+    if (!this->executablestate().IsInitialized()) return false;
+  }
   return true;
 }
 
@@ -465,7 +544,8 @@ void RmtxcblMessage::Swap(RmtxcblMessage* other) {
   if (other != this) {
     std::swap(type_, other->type_);
     std::swap(executable_, other->executable_);
-    std::swap(stream_, other->stream_);
+    std::swap(outstream_, other->outstream_);
+    std::swap(executablestate_, other->executablestate_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -757,86 +837,66 @@ void Executable::Swap(Executable* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int Stream::kInFieldNumber;
-const int Stream::kOutFieldNumber;
-const int Stream::kErrFieldNumber;
+const int OutStream::kOutFieldNumber;
 #endif  // !_MSC_VER
 
-Stream::Stream()
+OutStream::OutStream()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void Stream::InitAsDefaultInstance() {
+void OutStream::InitAsDefaultInstance() {
 }
 
-Stream::Stream(const Stream& from)
+OutStream::OutStream(const OutStream& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void Stream::SharedCtor() {
+void OutStream::SharedCtor() {
   _cached_size_ = 0;
-  in_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   out_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  err_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-Stream::~Stream() {
+OutStream::~OutStream() {
   SharedDtor();
 }
 
-void Stream::SharedDtor() {
-  if (in_ != &::google::protobuf::internal::kEmptyString) {
-    delete in_;
-  }
+void OutStream::SharedDtor() {
   if (out_ != &::google::protobuf::internal::kEmptyString) {
     delete out_;
-  }
-  if (err_ != &::google::protobuf::internal::kEmptyString) {
-    delete err_;
   }
   if (this != default_instance_) {
   }
 }
 
-void Stream::SetCachedSize(int size) const {
+void OutStream::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* Stream::descriptor() {
+const ::google::protobuf::Descriptor* OutStream::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return Stream_descriptor_;
+  return OutStream_descriptor_;
 }
 
-const Stream& Stream::default_instance() {
+const OutStream& OutStream::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_rmtxcbl_2eproto();  return *default_instance_;
 }
 
-Stream* Stream::default_instance_ = NULL;
+OutStream* OutStream::default_instance_ = NULL;
 
-Stream* Stream::New() const {
-  return new Stream;
+OutStream* OutStream::New() const {
+  return new OutStream;
 }
 
-void Stream::Clear() {
+void OutStream::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_in()) {
-      if (in_ != &::google::protobuf::internal::kEmptyString) {
-        in_->clear();
-      }
-    }
     if (has_out()) {
       if (out_ != &::google::protobuf::internal::kEmptyString) {
         out_->clear();
-      }
-    }
-    if (has_err()) {
-      if (err_ != &::google::protobuf::internal::kEmptyString) {
-        err_->clear();
       }
     }
   }
@@ -844,54 +904,20 @@ void Stream::Clear() {
   mutable_unknown_fields()->Clear();
 }
 
-bool Stream::MergePartialFromCodedStream(
+bool OutStream::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string in = 1;
+      // optional string out = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_in()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->in().data(), this->in().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(18)) goto parse_out;
-        break;
-      }
-      
-      // optional string out = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_out:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_out()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8String(
             this->out().data(), this->out().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(26)) goto parse_err;
-        break;
-      }
-      
-      // optional string err = 3;
-      case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_err:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_err()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->err().data(), this->err().length(),
             ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
@@ -916,33 +942,15 @@ bool Stream::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void Stream::SerializeWithCachedSizes(
+void OutStream::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // optional string in = 1;
-  if (has_in()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->in().data(), this->in().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      1, this->in(), output);
-  }
-  
-  // optional string out = 2;
+  // optional string out = 1;
   if (has_out()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->out().data(), this->out().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      2, this->out(), output);
-  }
-  
-  // optional string err = 3;
-  if (has_err()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->err().data(), this->err().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      3, this->err(), output);
+      1, this->out(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -951,36 +959,16 @@ void Stream::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* Stream::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* OutStream::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // optional string in = 1;
-  if (has_in()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->in().data(), this->in().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->in(), target);
-  }
-  
-  // optional string out = 2;
+  // optional string out = 1;
   if (has_out()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->out().data(), this->out().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->out(), target);
-  }
-  
-  // optional string err = 3;
-  if (has_err()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->err().data(), this->err().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->err(), target);
+        1, this->out(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -990,29 +978,15 @@ void Stream::SerializeWithCachedSizes(
   return target;
 }
 
-int Stream::ByteSize() const {
+int OutStream::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional string in = 1;
-    if (has_in()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->in());
-    }
-    
-    // optional string out = 2;
+    // optional string out = 1;
     if (has_out()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->out());
-    }
-    
-    // optional string err = 3;
-    if (has_err()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->err());
     }
     
   }
@@ -1027,10 +1001,10 @@ int Stream::ByteSize() const {
   return total_size;
 }
 
-void Stream::MergeFrom(const ::google::protobuf::Message& from) {
+void OutStream::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const Stream* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const Stream*>(
+  const OutStream* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const OutStream*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -1039,55 +1013,341 @@ void Stream::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void Stream::MergeFrom(const Stream& from) {
+void OutStream::MergeFrom(const OutStream& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_in()) {
-      set_in(from.in());
-    }
     if (from.has_out()) {
       set_out(from.out());
-    }
-    if (from.has_err()) {
-      set_err(from.err());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void Stream::CopyFrom(const ::google::protobuf::Message& from) {
+void OutStream::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void Stream::CopyFrom(const Stream& from) {
+void OutStream::CopyFrom(const OutStream& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool Stream::IsInitialized() const {
+bool OutStream::IsInitialized() const {
   
   return true;
 }
 
-void Stream::Swap(Stream* other) {
+void OutStream::Swap(OutStream* other) {
   if (other != this) {
-    std::swap(in_, other->in_);
     std::swap(out_, other->out_);
-    std::swap(err_, other->err_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::google::protobuf::Metadata Stream::GetMetadata() const {
+::google::protobuf::Metadata OutStream::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Stream_descriptor_;
-  metadata.reflection = Stream_reflection_;
+  metadata.descriptor = OutStream_descriptor_;
+  metadata.reflection = OutStream_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+const ::google::protobuf::EnumDescriptor* ExecutableState_State_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ExecutableState_State_descriptor_;
+}
+bool ExecutableState_State_IsValid(int value) {
+  switch(value) {
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#ifndef _MSC_VER
+const ExecutableState_State ExecutableState::TRANSFERED;
+const ExecutableState_State ExecutableState::STARTED;
+const ExecutableState_State ExecutableState::STOPPED;
+const ExecutableState_State ExecutableState::State_MIN;
+const ExecutableState_State ExecutableState::State_MAX;
+const int ExecutableState::State_ARRAYSIZE;
+#endif  // _MSC_VER
+#ifndef _MSC_VER
+const int ExecutableState::kStateFieldNumber;
+const int ExecutableState::kDescriptionFieldNumber;
+#endif  // !_MSC_VER
+
+ExecutableState::ExecutableState()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void ExecutableState::InitAsDefaultInstance() {
+}
+
+ExecutableState::ExecutableState(const ExecutableState& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void ExecutableState::SharedCtor() {
+  _cached_size_ = 0;
+  state_ = 1;
+  description_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ExecutableState::~ExecutableState() {
+  SharedDtor();
+}
+
+void ExecutableState::SharedDtor() {
+  if (description_ != &::google::protobuf::internal::kEmptyString) {
+    delete description_;
+  }
+  if (this != default_instance_) {
+  }
+}
+
+void ExecutableState::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ExecutableState::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ExecutableState_descriptor_;
+}
+
+const ExecutableState& ExecutableState::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_rmtxcbl_2eproto();  return *default_instance_;
+}
+
+ExecutableState* ExecutableState::default_instance_ = NULL;
+
+ExecutableState* ExecutableState::New() const {
+  return new ExecutableState;
+}
+
+void ExecutableState::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    state_ = 1;
+    if (has_description()) {
+      if (description_ != &::google::protobuf::internal::kEmptyString) {
+        description_->clear();
+      }
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ExecutableState::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .rmtxcbl.ExecutableState.State state = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::rmtxcbl::ExecutableState_State_IsValid(value)) {
+            set_state(static_cast< ::rmtxcbl::ExecutableState_State >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(1, value);
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_description;
+        break;
+      }
+      
+      // optional string description = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_description:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_description()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->description().data(), this->description().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void ExecutableState::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required .rmtxcbl.ExecutableState.State state = 1;
+  if (has_state()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->state(), output);
+  }
+  
+  // optional string description = 2;
+  if (has_description()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->description().data(), this->description().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->description(), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* ExecutableState::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required .rmtxcbl.ExecutableState.State state = 1;
+  if (has_state()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->state(), target);
+  }
+  
+  // optional string description = 2;
+  if (has_description()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->description().data(), this->description().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->description(), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int ExecutableState::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .rmtxcbl.ExecutableState.State state = 1;
+    if (has_state()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->state());
+    }
+    
+    // optional string description = 2;
+    if (has_description()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->description());
+    }
+    
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ExecutableState::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ExecutableState* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ExecutableState*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ExecutableState::MergeFrom(const ExecutableState& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_state()) {
+      set_state(from.state());
+    }
+    if (from.has_description()) {
+      set_description(from.description());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ExecutableState::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ExecutableState::CopyFrom(const ExecutableState& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ExecutableState::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  
+  return true;
+}
+
+void ExecutableState::Swap(ExecutableState* other) {
+  if (other != this) {
+    std::swap(state_, other->state_);
+    std::swap(description_, other->description_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata ExecutableState::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ExecutableState_descriptor_;
+  metadata.reflection = ExecutableState_reflection_;
   return metadata;
 }
 

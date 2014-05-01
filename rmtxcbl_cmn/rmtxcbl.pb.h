@@ -34,15 +34,17 @@ void protobuf_ShutdownFile_rmtxcbl_2eproto();
 
 class RmtxcblMessage;
 class Executable;
-class Stream;
+class OutStream;
+class ExecutableState;
 
 enum RmtxcblMessage_Type {
   RmtxcblMessage_Type_EXEC = 1,
-  RmtxcblMessage_Type_STREAM = 2
+  RmtxcblMessage_Type_OUTSTREAM = 2,
+  RmtxcblMessage_Type_STATE = 3
 };
 bool RmtxcblMessage_Type_IsValid(int value);
 const RmtxcblMessage_Type RmtxcblMessage_Type_Type_MIN = RmtxcblMessage_Type_EXEC;
-const RmtxcblMessage_Type RmtxcblMessage_Type_Type_MAX = RmtxcblMessage_Type_STREAM;
+const RmtxcblMessage_Type RmtxcblMessage_Type_Type_MAX = RmtxcblMessage_Type_STATE;
 const int RmtxcblMessage_Type_Type_ARRAYSIZE = RmtxcblMessage_Type_Type_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* RmtxcblMessage_Type_descriptor();
@@ -54,6 +56,26 @@ inline bool RmtxcblMessage_Type_Parse(
     const ::std::string& name, RmtxcblMessage_Type* value) {
   return ::google::protobuf::internal::ParseNamedEnum<RmtxcblMessage_Type>(
     RmtxcblMessage_Type_descriptor(), name, value);
+}
+enum ExecutableState_State {
+  ExecutableState_State_TRANSFERED = 1,
+  ExecutableState_State_STARTED = 2,
+  ExecutableState_State_STOPPED = 3
+};
+bool ExecutableState_State_IsValid(int value);
+const ExecutableState_State ExecutableState_State_State_MIN = ExecutableState_State_TRANSFERED;
+const ExecutableState_State ExecutableState_State_State_MAX = ExecutableState_State_STOPPED;
+const int ExecutableState_State_State_ARRAYSIZE = ExecutableState_State_State_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* ExecutableState_State_descriptor();
+inline const ::std::string& ExecutableState_State_Name(ExecutableState_State value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    ExecutableState_State_descriptor(), value);
+}
+inline bool ExecutableState_State_Parse(
+    const ::std::string& name, ExecutableState_State* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ExecutableState_State>(
+    ExecutableState_State_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -111,7 +133,8 @@ class RmtxcblMessage : public ::google::protobuf::Message {
   
   typedef RmtxcblMessage_Type Type;
   static const Type EXEC = RmtxcblMessage_Type_EXEC;
-  static const Type STREAM = RmtxcblMessage_Type_STREAM;
+  static const Type OUTSTREAM = RmtxcblMessage_Type_OUTSTREAM;
+  static const Type STATE = RmtxcblMessage_Type_STATE;
   static inline bool Type_IsValid(int value) {
     return RmtxcblMessage_Type_IsValid(value);
   }
@@ -150,13 +173,21 @@ class RmtxcblMessage : public ::google::protobuf::Message {
   inline ::rmtxcbl::Executable* mutable_executable();
   inline ::rmtxcbl::Executable* release_executable();
   
-  // optional .rmtxcbl.Stream stream = 3;
-  inline bool has_stream() const;
-  inline void clear_stream();
-  static const int kStreamFieldNumber = 3;
-  inline const ::rmtxcbl::Stream& stream() const;
-  inline ::rmtxcbl::Stream* mutable_stream();
-  inline ::rmtxcbl::Stream* release_stream();
+  // optional .rmtxcbl.OutStream outstream = 3;
+  inline bool has_outstream() const;
+  inline void clear_outstream();
+  static const int kOutstreamFieldNumber = 3;
+  inline const ::rmtxcbl::OutStream& outstream() const;
+  inline ::rmtxcbl::OutStream* mutable_outstream();
+  inline ::rmtxcbl::OutStream* release_outstream();
+  
+  // optional .rmtxcbl.ExecutableState executableState = 4;
+  inline bool has_executablestate() const;
+  inline void clear_executablestate();
+  static const int kExecutableStateFieldNumber = 4;
+  inline const ::rmtxcbl::ExecutableState& executablestate() const;
+  inline ::rmtxcbl::ExecutableState* mutable_executablestate();
+  inline ::rmtxcbl::ExecutableState* release_executablestate();
   
   // @@protoc_insertion_point(class_scope:rmtxcbl.RmtxcblMessage)
  private:
@@ -164,17 +195,20 @@ class RmtxcblMessage : public ::google::protobuf::Message {
   inline void clear_has_type();
   inline void set_has_executable();
   inline void clear_has_executable();
-  inline void set_has_stream();
-  inline void clear_has_stream();
+  inline void set_has_outstream();
+  inline void clear_has_outstream();
+  inline void set_has_executablestate();
+  inline void clear_has_executablestate();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
   ::rmtxcbl::Executable* executable_;
-  ::rmtxcbl::Stream* stream_;
+  ::rmtxcbl::OutStream* outstream_;
+  ::rmtxcbl::ExecutableState* executablestate_;
   int type_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
   
   friend void  protobuf_AddDesc_rmtxcbl_2eproto();
   friend void protobuf_AssignDesc_rmtxcbl_2eproto();
@@ -285,14 +319,14 @@ class Executable : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class Stream : public ::google::protobuf::Message {
+class OutStream : public ::google::protobuf::Message {
  public:
-  Stream();
-  virtual ~Stream();
+  OutStream();
+  virtual ~OutStream();
   
-  Stream(const Stream& from);
+  OutStream(const OutStream& from);
   
-  inline Stream& operator=(const Stream& from) {
+  inline OutStream& operator=(const OutStream& from) {
     CopyFrom(from);
     return *this;
   }
@@ -306,17 +340,17 @@ class Stream : public ::google::protobuf::Message {
   }
   
   static const ::google::protobuf::Descriptor* descriptor();
-  static const Stream& default_instance();
+  static const OutStream& default_instance();
   
-  void Swap(Stream* other);
+  void Swap(OutStream* other);
   
   // implements Message ----------------------------------------------
   
-  Stream* New() const;
+  OutStream* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Stream& from);
-  void MergeFrom(const Stream& from);
+  void CopyFrom(const OutStream& from);
+  void MergeFrom(const OutStream& from);
   void Clear();
   bool IsInitialized() const;
   
@@ -339,21 +373,10 @@ class Stream : public ::google::protobuf::Message {
   
   // accessors -------------------------------------------------------
   
-  // optional string in = 1;
-  inline bool has_in() const;
-  inline void clear_in();
-  static const int kInFieldNumber = 1;
-  inline const ::std::string& in() const;
-  inline void set_in(const ::std::string& value);
-  inline void set_in(const char* value);
-  inline void set_in(const char* value, size_t size);
-  inline ::std::string* mutable_in();
-  inline ::std::string* release_in();
-  
-  // optional string out = 2;
+  // optional string out = 1;
   inline bool has_out() const;
   inline void clear_out();
-  static const int kOutFieldNumber = 2;
+  static const int kOutFieldNumber = 1;
   inline const ::std::string& out() const;
   inline void set_out(const ::std::string& value);
   inline void set_out(const char* value);
@@ -361,41 +384,145 @@ class Stream : public ::google::protobuf::Message {
   inline ::std::string* mutable_out();
   inline ::std::string* release_out();
   
-  // optional string err = 3;
-  inline bool has_err() const;
-  inline void clear_err();
-  static const int kErrFieldNumber = 3;
-  inline const ::std::string& err() const;
-  inline void set_err(const ::std::string& value);
-  inline void set_err(const char* value);
-  inline void set_err(const char* value, size_t size);
-  inline ::std::string* mutable_err();
-  inline ::std::string* release_err();
-  
-  // @@protoc_insertion_point(class_scope:rmtxcbl.Stream)
+  // @@protoc_insertion_point(class_scope:rmtxcbl.OutStream)
  private:
-  inline void set_has_in();
-  inline void clear_has_in();
   inline void set_has_out();
   inline void clear_has_out();
-  inline void set_has_err();
-  inline void clear_has_err();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::std::string* in_;
   ::std::string* out_;
-  ::std::string* err_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
   
   friend void  protobuf_AddDesc_rmtxcbl_2eproto();
   friend void protobuf_AssignDesc_rmtxcbl_2eproto();
   friend void protobuf_ShutdownFile_rmtxcbl_2eproto();
   
   void InitAsDefaultInstance();
-  static Stream* default_instance_;
+  static OutStream* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ExecutableState : public ::google::protobuf::Message {
+ public:
+  ExecutableState();
+  virtual ~ExecutableState();
+  
+  ExecutableState(const ExecutableState& from);
+  
+  inline ExecutableState& operator=(const ExecutableState& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+  
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+  
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ExecutableState& default_instance();
+  
+  void Swap(ExecutableState* other);
+  
+  // implements Message ----------------------------------------------
+  
+  ExecutableState* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ExecutableState& from);
+  void MergeFrom(const ExecutableState& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::google::protobuf::Metadata GetMetadata() const;
+  
+  // nested types ----------------------------------------------------
+  
+  typedef ExecutableState_State State;
+  static const State TRANSFERED = ExecutableState_State_TRANSFERED;
+  static const State STARTED = ExecutableState_State_STARTED;
+  static const State STOPPED = ExecutableState_State_STOPPED;
+  static inline bool State_IsValid(int value) {
+    return ExecutableState_State_IsValid(value);
+  }
+  static const State State_MIN =
+    ExecutableState_State_State_MIN;
+  static const State State_MAX =
+    ExecutableState_State_State_MAX;
+  static const int State_ARRAYSIZE =
+    ExecutableState_State_State_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  State_descriptor() {
+    return ExecutableState_State_descriptor();
+  }
+  static inline const ::std::string& State_Name(State value) {
+    return ExecutableState_State_Name(value);
+  }
+  static inline bool State_Parse(const ::std::string& name,
+      State* value) {
+    return ExecutableState_State_Parse(name, value);
+  }
+  
+  // accessors -------------------------------------------------------
+  
+  // required .rmtxcbl.ExecutableState.State state = 1;
+  inline bool has_state() const;
+  inline void clear_state();
+  static const int kStateFieldNumber = 1;
+  inline ::rmtxcbl::ExecutableState_State state() const;
+  inline void set_state(::rmtxcbl::ExecutableState_State value);
+  
+  // optional string description = 2;
+  inline bool has_description() const;
+  inline void clear_description();
+  static const int kDescriptionFieldNumber = 2;
+  inline const ::std::string& description() const;
+  inline void set_description(const ::std::string& value);
+  inline void set_description(const char* value);
+  inline void set_description(const char* value, size_t size);
+  inline ::std::string* mutable_description();
+  inline ::std::string* release_description();
+  
+  // @@protoc_insertion_point(class_scope:rmtxcbl.ExecutableState)
+ private:
+  inline void set_has_state();
+  inline void clear_has_state();
+  inline void set_has_description();
+  inline void clear_has_description();
+  
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  
+  ::std::string* description_;
+  int state_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_rmtxcbl_2eproto();
+  friend void protobuf_AssignDesc_rmtxcbl_2eproto();
+  friend void protobuf_ShutdownFile_rmtxcbl_2eproto();
+  
+  void InitAsDefaultInstance();
+  static ExecutableState* default_instance_;
 };
 // ===================================================================
 
@@ -456,32 +583,61 @@ inline ::rmtxcbl::Executable* RmtxcblMessage::release_executable() {
   return temp;
 }
 
-// optional .rmtxcbl.Stream stream = 3;
-inline bool RmtxcblMessage::has_stream() const {
+// optional .rmtxcbl.OutStream outstream = 3;
+inline bool RmtxcblMessage::has_outstream() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void RmtxcblMessage::set_has_stream() {
+inline void RmtxcblMessage::set_has_outstream() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void RmtxcblMessage::clear_has_stream() {
+inline void RmtxcblMessage::clear_has_outstream() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void RmtxcblMessage::clear_stream() {
-  if (stream_ != NULL) stream_->::rmtxcbl::Stream::Clear();
-  clear_has_stream();
+inline void RmtxcblMessage::clear_outstream() {
+  if (outstream_ != NULL) outstream_->::rmtxcbl::OutStream::Clear();
+  clear_has_outstream();
 }
-inline const ::rmtxcbl::Stream& RmtxcblMessage::stream() const {
-  return stream_ != NULL ? *stream_ : *default_instance_->stream_;
+inline const ::rmtxcbl::OutStream& RmtxcblMessage::outstream() const {
+  return outstream_ != NULL ? *outstream_ : *default_instance_->outstream_;
 }
-inline ::rmtxcbl::Stream* RmtxcblMessage::mutable_stream() {
-  set_has_stream();
-  if (stream_ == NULL) stream_ = new ::rmtxcbl::Stream;
-  return stream_;
+inline ::rmtxcbl::OutStream* RmtxcblMessage::mutable_outstream() {
+  set_has_outstream();
+  if (outstream_ == NULL) outstream_ = new ::rmtxcbl::OutStream;
+  return outstream_;
 }
-inline ::rmtxcbl::Stream* RmtxcblMessage::release_stream() {
-  clear_has_stream();
-  ::rmtxcbl::Stream* temp = stream_;
-  stream_ = NULL;
+inline ::rmtxcbl::OutStream* RmtxcblMessage::release_outstream() {
+  clear_has_outstream();
+  ::rmtxcbl::OutStream* temp = outstream_;
+  outstream_ = NULL;
+  return temp;
+}
+
+// optional .rmtxcbl.ExecutableState executableState = 4;
+inline bool RmtxcblMessage::has_executablestate() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void RmtxcblMessage::set_has_executablestate() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void RmtxcblMessage::clear_has_executablestate() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void RmtxcblMessage::clear_executablestate() {
+  if (executablestate_ != NULL) executablestate_->::rmtxcbl::ExecutableState::Clear();
+  clear_has_executablestate();
+}
+inline const ::rmtxcbl::ExecutableState& RmtxcblMessage::executablestate() const {
+  return executablestate_ != NULL ? *executablestate_ : *default_instance_->executablestate_;
+}
+inline ::rmtxcbl::ExecutableState* RmtxcblMessage::mutable_executablestate() {
+  set_has_executablestate();
+  if (executablestate_ == NULL) executablestate_ = new ::rmtxcbl::ExecutableState;
+  return executablestate_;
+}
+inline ::rmtxcbl::ExecutableState* RmtxcblMessage::release_executablestate() {
+  clear_has_executablestate();
+  ::rmtxcbl::ExecutableState* temp = executablestate_;
+  executablestate_ = NULL;
   return temp;
 }
 
@@ -607,114 +763,56 @@ inline ::std::string* Executable::release_label() {
 
 // -------------------------------------------------------------------
 
-// Stream
+// OutStream
 
-// optional string in = 1;
-inline bool Stream::has_in() const {
+// optional string out = 1;
+inline bool OutStream::has_out() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Stream::set_has_in() {
+inline void OutStream::set_has_out() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Stream::clear_has_in() {
+inline void OutStream::clear_has_out() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void Stream::clear_in() {
-  if (in_ != &::google::protobuf::internal::kEmptyString) {
-    in_->clear();
-  }
-  clear_has_in();
-}
-inline const ::std::string& Stream::in() const {
-  return *in_;
-}
-inline void Stream::set_in(const ::std::string& value) {
-  set_has_in();
-  if (in_ == &::google::protobuf::internal::kEmptyString) {
-    in_ = new ::std::string;
-  }
-  in_->assign(value);
-}
-inline void Stream::set_in(const char* value) {
-  set_has_in();
-  if (in_ == &::google::protobuf::internal::kEmptyString) {
-    in_ = new ::std::string;
-  }
-  in_->assign(value);
-}
-inline void Stream::set_in(const char* value, size_t size) {
-  set_has_in();
-  if (in_ == &::google::protobuf::internal::kEmptyString) {
-    in_ = new ::std::string;
-  }
-  in_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* Stream::mutable_in() {
-  set_has_in();
-  if (in_ == &::google::protobuf::internal::kEmptyString) {
-    in_ = new ::std::string;
-  }
-  return in_;
-}
-inline ::std::string* Stream::release_in() {
-  clear_has_in();
-  if (in_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = in_;
-    in_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-
-// optional string out = 2;
-inline bool Stream::has_out() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void Stream::set_has_out() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void Stream::clear_has_out() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void Stream::clear_out() {
+inline void OutStream::clear_out() {
   if (out_ != &::google::protobuf::internal::kEmptyString) {
     out_->clear();
   }
   clear_has_out();
 }
-inline const ::std::string& Stream::out() const {
+inline const ::std::string& OutStream::out() const {
   return *out_;
 }
-inline void Stream::set_out(const ::std::string& value) {
+inline void OutStream::set_out(const ::std::string& value) {
   set_has_out();
   if (out_ == &::google::protobuf::internal::kEmptyString) {
     out_ = new ::std::string;
   }
   out_->assign(value);
 }
-inline void Stream::set_out(const char* value) {
+inline void OutStream::set_out(const char* value) {
   set_has_out();
   if (out_ == &::google::protobuf::internal::kEmptyString) {
     out_ = new ::std::string;
   }
   out_->assign(value);
 }
-inline void Stream::set_out(const char* value, size_t size) {
+inline void OutStream::set_out(const char* value, size_t size) {
   set_has_out();
   if (out_ == &::google::protobuf::internal::kEmptyString) {
     out_ = new ::std::string;
   }
   out_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* Stream::mutable_out() {
+inline ::std::string* OutStream::mutable_out() {
   set_has_out();
   if (out_ == &::google::protobuf::internal::kEmptyString) {
     out_ = new ::std::string;
   }
   return out_;
 }
-inline ::std::string* Stream::release_out() {
+inline ::std::string* OutStream::release_out() {
   clear_has_out();
   if (out_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
@@ -725,60 +823,87 @@ inline ::std::string* Stream::release_out() {
   }
 }
 
-// optional string err = 3;
-inline bool Stream::has_err() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+// -------------------------------------------------------------------
+
+// ExecutableState
+
+// required .rmtxcbl.ExecutableState.State state = 1;
+inline bool ExecutableState::has_state() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Stream::set_has_err() {
-  _has_bits_[0] |= 0x00000004u;
+inline void ExecutableState::set_has_state() {
+  _has_bits_[0] |= 0x00000001u;
 }
-inline void Stream::clear_has_err() {
-  _has_bits_[0] &= ~0x00000004u;
+inline void ExecutableState::clear_has_state() {
+  _has_bits_[0] &= ~0x00000001u;
 }
-inline void Stream::clear_err() {
-  if (err_ != &::google::protobuf::internal::kEmptyString) {
-    err_->clear();
+inline void ExecutableState::clear_state() {
+  state_ = 1;
+  clear_has_state();
+}
+inline ::rmtxcbl::ExecutableState_State ExecutableState::state() const {
+  return static_cast< ::rmtxcbl::ExecutableState_State >(state_);
+}
+inline void ExecutableState::set_state(::rmtxcbl::ExecutableState_State value) {
+  GOOGLE_DCHECK(::rmtxcbl::ExecutableState_State_IsValid(value));
+  set_has_state();
+  state_ = value;
+}
+
+// optional string description = 2;
+inline bool ExecutableState::has_description() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ExecutableState::set_has_description() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ExecutableState::clear_has_description() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ExecutableState::clear_description() {
+  if (description_ != &::google::protobuf::internal::kEmptyString) {
+    description_->clear();
   }
-  clear_has_err();
+  clear_has_description();
 }
-inline const ::std::string& Stream::err() const {
-  return *err_;
+inline const ::std::string& ExecutableState::description() const {
+  return *description_;
 }
-inline void Stream::set_err(const ::std::string& value) {
-  set_has_err();
-  if (err_ == &::google::protobuf::internal::kEmptyString) {
-    err_ = new ::std::string;
+inline void ExecutableState::set_description(const ::std::string& value) {
+  set_has_description();
+  if (description_ == &::google::protobuf::internal::kEmptyString) {
+    description_ = new ::std::string;
   }
-  err_->assign(value);
+  description_->assign(value);
 }
-inline void Stream::set_err(const char* value) {
-  set_has_err();
-  if (err_ == &::google::protobuf::internal::kEmptyString) {
-    err_ = new ::std::string;
+inline void ExecutableState::set_description(const char* value) {
+  set_has_description();
+  if (description_ == &::google::protobuf::internal::kEmptyString) {
+    description_ = new ::std::string;
   }
-  err_->assign(value);
+  description_->assign(value);
 }
-inline void Stream::set_err(const char* value, size_t size) {
-  set_has_err();
-  if (err_ == &::google::protobuf::internal::kEmptyString) {
-    err_ = new ::std::string;
+inline void ExecutableState::set_description(const char* value, size_t size) {
+  set_has_description();
+  if (description_ == &::google::protobuf::internal::kEmptyString) {
+    description_ = new ::std::string;
   }
-  err_->assign(reinterpret_cast<const char*>(value), size);
+  description_->assign(reinterpret_cast<const char*>(value), size);
 }
-inline ::std::string* Stream::mutable_err() {
-  set_has_err();
-  if (err_ == &::google::protobuf::internal::kEmptyString) {
-    err_ = new ::std::string;
+inline ::std::string* ExecutableState::mutable_description() {
+  set_has_description();
+  if (description_ == &::google::protobuf::internal::kEmptyString) {
+    description_ = new ::std::string;
   }
-  return err_;
+  return description_;
 }
-inline ::std::string* Stream::release_err() {
-  clear_has_err();
-  if (err_ == &::google::protobuf::internal::kEmptyString) {
+inline ::std::string* ExecutableState::release_description() {
+  clear_has_description();
+  if (description_ == &::google::protobuf::internal::kEmptyString) {
     return NULL;
   } else {
-    ::std::string* temp = err_;
-    err_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    ::std::string* temp = description_;
+    description_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
     return temp;
   }
 }
@@ -795,6 +920,10 @@ namespace protobuf {
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::rmtxcbl::RmtxcblMessage_Type>() {
   return ::rmtxcbl::RmtxcblMessage_Type_descriptor();
+}
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::rmtxcbl::ExecutableState_State>() {
+  return ::rmtxcbl::ExecutableState_State_descriptor();
 }
 
 }  // namespace google
