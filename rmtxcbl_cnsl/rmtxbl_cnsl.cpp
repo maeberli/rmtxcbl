@@ -1,9 +1,6 @@
 #include <iostream>
 #include <string>
-#include "execManager.hpp"
-#include "rmtxcbl.pb.h"
-
-#include "tcpconnector.hpp"
+#include "console.hpp"
 
 bool parseArgs(int argc, char** argv, std::string *out_exec, std::string *out_remhost);
 void printHelp(char *argv0, std::string errorMsg);
@@ -22,40 +19,17 @@ int main(int argc, char** argv)
         return 2;
     }
     
-    std::cout << "Exec to send : " << exec << std::endl;
-    std::cout << "At : " << remhost << std::endl;
-    rmtxcbl::ExecManager execManager(exec);
-    if( !execManager.importExec() )
-    {
-		printError("Failed to import exec : " + exec);
-		return 0;
-	}
-	std::cout << "Exec imported" << std::endl;
-	
-	rmtxcbl::Executable executable;
-    std::cout << "size of " << sizeof(execManager.getExec()) << std::endl;
-	executable.set_exec(execManager.getExec());
-	executable.set_label("DummyExecLabel"); 
-	std::cout << "Protobuf executable setted" << std::endl;
-
-    rmtxcbl::TCPConnector connector;
-    rmtxcbl::TCPStream *stream = connector.connect("127.0.0.1", 6686);
-    std::cout << "Connected" << std::endl;
-
-    std::cout << "will send exec: " << executable.exec() << std::endl;
-    std::cout << "will send label: " << executable.label() << std::endl; 
-
-    stream->sendMessage(executable);
-
-    std::cout << "Message sent" << std::endl;
-
-    delete stream;
-	
-	// User sokets here
-	std::cout << "[TODO] Message send via sockets" << std::endl;
-	
-	
-	google::protobuf::ShutdownProtobufLibrary();
+    const int port = 6686;
+    const std::string label = "helloWorld";
+    std::cout << std::endl << "===================================" << std::endl;
+    std::cout << "Exec to send\t: " << exec << std::endl;
+    std::cout << "With label\t: " << label << std::endl;
+    std::cout << "Remote address\t: " << remhost << ":" << port << std::endl;
+    std::cout << "===================================" << std::endl  << std::endl;
+    
+    rmtxcbl::Console console(exec, label, remhost, port);
+    console.sendExecAndListen();
+    
     return 0;
 }
 
