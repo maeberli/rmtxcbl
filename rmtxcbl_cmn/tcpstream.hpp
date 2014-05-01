@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <string>
 
+#include "rmtxcbl.pb.h"
+
 using namespace std;
 
 namespace rmtxcbl
@@ -19,10 +21,17 @@ public:
                               // to instanciate TCPStream objects
     friend class TCPConnector;
 
+    ~TCPStream();
+
     string getPeerIP();
     int getPeerPort();
 
+    bool receiveMessage(Executable **msg, int timeout);
+    bool sendMessage(const Executable &msg);
+
 private:
+    static const int MAX_MESSAGE_SIZE;
+    
     int socketdescriptor;
     string peerIP;
     int peerPort;
@@ -32,7 +41,16 @@ private:
     TCPStream(const TCPStream& stream);
 
     ssize_t sendBuffer(char* buffer, size_t len);
-    ssize_t receive(char* buffer, size_t len);
+    ssize_t receive(char* buffer, size_t len, int timeout);
+
+    bool waitForReadEvent(int connectionTimedOut);
+
+    enum
+    {
+        connectionClosed = 0,
+        connectionReset = -1,
+        connectionTimedOut = -2
+    };
 };
 
 }

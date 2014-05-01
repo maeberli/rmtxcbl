@@ -3,6 +3,8 @@
 #include "execManager.hpp"
 #include "rmtxcbl.pb.h"
 
+#include "tcpconnector.hpp"
+
 bool parseArgs(int argc, char** argv, std::string *out_exec, std::string *out_remhost);
 void printHelp(char *argv0, std::string errorMsg);
 void printHelp(char *argv0);
@@ -31,9 +33,23 @@ int main(int argc, char** argv)
 	std::cout << "Exec imported" << std::endl;
 	
 	rmtxcbl::Executable executable;
+    std::cout << "size of " << sizeof(execManager.getExec()) << std::endl;
 	executable.set_exec(execManager.getExec());
 	executable.set_label("DummyExecLabel"); 
 	std::cout << "Protobuf executable setted" << std::endl;
+
+    rmtxcbl::TCPConnector connector;
+    rmtxcbl::TCPStream *stream = connector.connect("127.0.0.1", 6686);
+    std::cout << "Connected" << std::endl;
+
+    std::cout << "will send exec: " << executable.exec() << std::endl;
+    std::cout << "will send label: " << executable.label() << std::endl; 
+
+    stream->sendMessage(executable);
+
+    std::cout << "Message sent" << std::endl;
+
+    delete stream;
 	
 	// User sokets here
 	std::cout << "[TODO] Message send via sockets" << std::endl;

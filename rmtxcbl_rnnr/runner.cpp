@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <iostream>
 
+#include "executor.hpp"
+
 namespace rmtxcbl
 {
 
@@ -70,8 +72,12 @@ void Runner::forkAndHandle(TCPStream *stream)
 
 void Runner::handle(TCPStream *stream)
 {
-    while(true)
-        std::cout << "handle " << getpid() << std::endl;
+    Executor executor(stream);
+    std::cout << "created executor" << std::endl;
+
+    executor.process();
+
+    delete stream;
 }
 
 }
