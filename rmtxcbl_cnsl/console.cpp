@@ -45,27 +45,23 @@ bool Console::sendExec(void)
         std::cout << std::endl << "Error : Failed to import exec " << label << std::endl << std::endl;
         return false;
     }
-    std::cout << "Exec imported" << std::endl;
     
     rmtxcbl::Executable *executable = new Executable();
-    std::cout << "size of " << sizeof(execManager.getExec()) << std::endl;
     executable->set_exec(execManager.getExec(), execManager.getExecSize());
     executable->set_label(label); 
-    std::cout << "Protobuf executable setted" << std::endl;
 
     rmtxcbl::TCPConnector connector;
     stream = connector.connect(remHost.c_str(), port);
-    std::cout << "Connected" << std::endl;
 
-    std::cout << "will send exec: " << executable->exec() << std::endl;
-    std::cout << "will send label: " << executable->label() << std::endl; 
+    // std::cout << "will send exec: " << executable->exec() << std::endl;
+    // std::cout << "size of " << sizeof(execManager.getExec()) << std::endl;
+    // std::cout << "will send label: " << executable->label() << std::endl; 
     
     rmtxcbl::RmtxcblMessage rmtxcblMessage;
     rmtxcblMessage.set_type(rmtxcbl::RmtxcblMessage_Type_EXEC);
     rmtxcblMessage.mutable_executable()->CopyFrom(*executable);
 
     stream->sendMessage(rmtxcblMessage);
-    std::cout << "Message sent" << std::endl;
         
     return true;
 }

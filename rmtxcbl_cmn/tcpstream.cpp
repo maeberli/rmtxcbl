@@ -26,17 +26,20 @@ int TCPStream::getPeerPort()
     return this->peerPort;
 }
 
+/**
+ *	@return true if message recieved, false otherwise. 
+ */
 bool TCPStream::receiveMessage(RmtxcblMessage **msg, int timeout)
 {
     char buffer[MAX_MESSAGE_SIZE];
 
     int received_bytes = receive(buffer, MAX_MESSAGE_SIZE, timeout);
-    if( received_bytes > 0)
+    if( received_bytes > 0 )
     {
         *msg = new RmtxcblMessage();
         return (*msg)->ParseFromArray(buffer, received_bytes);
     }
-    else
+    else if ( received_bytes != connectionTimedOut )
     {
         perror("error during message receive");
     }
