@@ -34,7 +34,7 @@ void Executor::process(void)
         }
         else
         {
-            sendState("Unexpected message received");
+            sendState("Unexpected message received", rmtxcbl::ExecutableState::STOPPED);
         }
     }
     else
@@ -72,16 +72,18 @@ bool Executor::runExecutable(void)
         close(link[0]);
         
         // run executable
-        sendState("Start execution");
+        sendState("Start execution", rmtxcbl::ExecutableState::STARTED);
 
         int code = execl(this->filename.c_str(), this->filename.c_str(), (char *)0);
         if(code == -1)
         {
             perror("child process error");
-            sendState("Running failed. Runner internal error");
+            sendState(
+                    "Running failed. Runner internal error",
+                    rmtxcbl::ExecutableState::STOPPED);
         }
 
-        sendState("Finished execution with: " + code);
+        sendState("Finished execution with: " + code, rmtxcbl::ExecutableState::STOPPED);
     }
     else
     {
@@ -98,33 +100,22 @@ void Executor::sendStdOut(std::string line)
     std::cout << "runner STDOUT sends line to cnsl: " << line << std::endl;
 
     rmtxcbl::RmtxcblMessage msg;
-    msg.set_type(rmtxcbl::RmtxcblMessage_Type_STREAM);
+    msg.set_type(rmtxcbl::RmtxcblMessage_Type_OUTSTREAM);
 
-    msg.mutable_stream()->set_out(line);
-
-    stream->sendMessage(msg);
-}
-
-void Executor::sendStdErr(std::string line)
-{
-    std::cout << "runner ERROR send line to cnsl: " << line << std::endl;
-
-    rmtxcbl::RmtxcblMessage msg;
-    msg.set_type(rmtxcbl::RmtxcblMessage_Type_STREAM);
-
-    msg.mutable_stream()->set_err(line);
+    msg.mutable_outstream()->set_out(line);
 
     stream->sendMessage(msg);
 }
 
-void Executor::sendState(std::string state)
+void Executor::sendState(std::string description, rmtxcbl::ExecutableState::State state)
 {
     std::cout << "runner sends STATE to cnsl: " << state << std::endl;
 
     rmtxcbl::RmtxcblMessage msg;
-    msg.set_type(rmtxcbl::RmtxcblMessage_Type_STREAM);
+    msg.set_type(rmtxcbl::RmtxcblMessage_Type_STATE);
 
-    msg.mutable_stream()->set_in(state);
+    msg.mutable_executablestate()->set_description(description);
+    msg.mutable_executablestate()->set_state(state);
 
     stream->sendMessage(msg);
 }
@@ -147,8 +138,10 @@ void Executor::readFromPipe(int fd)
         str += c;
         }
     }
-
-    sendState(str);
+    if(str.length() != 0)
+    {
+        sendStdOut(str);
+    }
 
     fclose(stream);
 }

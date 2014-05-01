@@ -19,8 +19,7 @@ private:
     void saveBinary(const char *buffer, size_t size);
     bool runExecutable(void);
     void sendStdOut(std::string line);
-    void sendStdErr(std::string line);
-    void sendState(std::string state);
+    void sendState(std::string descrption, rmtxcbl::ExecutableState::State state);
 
     void readFromPipe(int fd);
     
